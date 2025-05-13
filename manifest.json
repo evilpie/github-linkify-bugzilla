@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+
+  "name": "Github Linkify Bugzilla",
+  "version": "0.0.1",
+
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["https://github.com/mozilla-firefox/*"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    }
+  ]
+
+}
