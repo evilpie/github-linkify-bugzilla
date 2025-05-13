@@ -4,6 +4,12 @@
   "name": "Github Linkify Bugzilla",
   "version": "0.0.1",
 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "github-linkify-bugzilla@schuster.to"
+    }
+  },
+
   "content_scripts": [
     {
       "js": ["content.js"],
@@ -12,5 +18,4 @@
       "world": "MAIN"
     }
   ]
-
 }
