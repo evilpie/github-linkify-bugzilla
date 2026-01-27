@@ -44,7 +44,7 @@ function replaceBug(element) {
   function update() {
     console.log("update");
 
-    let containers = document.querySelectorAll(".prc-Text-Text-0ima0");
+    let containers = document.querySelectorAll("[class*='prc-Text-Text-']");
     for (let container of containers) {
       replaceBug(container);
     }
