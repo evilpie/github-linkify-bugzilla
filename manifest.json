@@ -14,8 +14,7 @@
     {
       "js": ["content.js"],
       "matches": ["https://github.com/mozilla-firefox/*", "https://github.com/mozilla-l10n/*"],
-      "run_at": "document_idle",
-      "world": "MAIN"
+      "run_at": "document_idle"
     }
   ]
 }
