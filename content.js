@@ -13,7 +13,7 @@ function replaceBug(element) {
   }
 
   let text = element.textContent;
-  let match = /(.*)?([Bb]ug\s+#?(\d{3,}))(.*)?/.exec(text);
+  let match = /(.*)?([Bb]ug\s+#?(\d{3,}))(.*)?/s.exec(text);
   if (match) {
     let span = document.createElement("span");
 
