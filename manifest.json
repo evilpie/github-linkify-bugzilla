@@ -16,6 +16,8 @@
       "matches": [
         "https://github.com/mozilla-firefox/*",
         "https://github.com/mozilla-l10n/*",
+        "https://github.com/mozilla/application-services",
+        "https://github.com/mozilla/application-services?*",
         "https://github.com/mozilla/application-services/*"
       ],
       "run_at": "document_idle",
