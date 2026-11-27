@@ -1,3 +1,16 @@
+function createBugLink(text, id) {
+  let link = document.createElement("a");
+  link.href = "https://bugzilla.mozilla.org/show_bug.cgi?id=" + id;
+  link.target = "_blank";
+  link.classList.add(".bugzilla");
+  link.textContent = text;
+  // Make link clickable inside another link.
+  link.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+  return link;
+}
+
 function replaceBug(element) {
   // Prevent recursion
   if (element.classList?.contains(".bugzilla")) {
@@ -21,16 +34,7 @@ function replaceBug(element) {
       span.append(match[1])
     }
 
-    let a = document.createElement("a");
-    a.href = "https://bugzilla.mozilla.org/show_bug.cgi?id=" + match[3];
-    a.target = "_blank";
-    a.classList.add(".bugzilla");
-    a.textContent = match[2];
-    // Make link clickable inside another link.
-    a.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-    span.append(a);
+    span.append(createBugLink(match[2], match[3]));
 
     if (match[4]) {
       span.append(match[4]);
@@ -40,10 +44,30 @@ function replaceBug(element) {
   }
 }
 
+function replaceBugCommitLinks(container) {
+  for (let link of container.querySelectorAll("a.commit-link")) {
+    let id = link.textContent;
+    if (!/^\d{3,}$/.test(id)) {
+      continue;
+    }
+
+    // GitHub sometimes interprets a bug number as an abbreviated commit hash.
+    let preceding = document.createRange();
+    preceding.setStart(container, 0);
+    preceding.setEndBefore(link);
+    if (/\b[Bb]ug\s+#?$/.test(preceding.toString())) {
+      link.replaceWith(createBugLink(id, id));
+    }
+  }
+}
+
 {
   function update() {
-    let containers = document.querySelectorAll("[class*='prc-Text-Text-']");
+    let containers = document.querySelectorAll(
+      "[class*='prc-Text-Text-'], .react-directory-commit-message"
+    );
     for (let container of containers) {
+      replaceBugCommitLinks(container);
       replaceBug(container);
     }
   }
